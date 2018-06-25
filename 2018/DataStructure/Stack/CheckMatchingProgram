@@ -50,4 +50,3 @@ public class Main {
 		check.checkMatching("C:\\Users\\JiMyungWha\\eclipse-workspace\\DataStructure_Stack_CheckMatching\\src\\Main.java");
 	}
 }
-
