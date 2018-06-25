@@ -22,7 +22,7 @@ class CheckMatching {
 			if (ch == '\n') nLine++;
 			nChar++;
 			
-			if (ch == '[' || ch == '(' || ch == '{') stack.push(ch);
+			if (ch == '[' || ch == '(' || ch == '{') stack.push(ch); ## 여기서 에러가 뜨는 것을 볼 수 
 			else if (ch == ']' || ch == ')' || ch == '}') {
 				// error 1. if stack is empty
 				if (stack.isEmpty()) break; 
