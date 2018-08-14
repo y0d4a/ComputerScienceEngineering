@@ -1,0 +1,143 @@
+import java.util.Scanner;
+import java.util.Random;
+
+class Customer {
+	private int id;       
+	private int tArrival; // customer arrive time
+	private int tService; // customer service time
+	
+	public int getID() { return id; }
+	public int getTA() { return tArrival; }
+	public int getTS() { return tService; }
+	
+	// create constructor
+	public Customer(int i, int tArr, int tServ) {
+		id = i;
+		tArrival = tArr;
+		tService = tServ;
+	}
+}
+
+class CustomerQueue {
+	final int MAX_QUEUE_SIZE = 100;
+	private int front;
+	private int rear;
+	private Customer[] data = new Customer[MAX_QUEUE_SIZE];
+	
+	// create constructor
+	public CustomerQueue() { front = rear = 0; }
+	// check queue is empty
+	public boolean isEmpty() { return front == rear; }
+	// check queue is full
+	public boolean isFull() { return front == (rear + 1) % MAX_QUEUE_SIZE; }
+	// queue status error
+	public void error(String str) {
+		System.out.printf("%s", str);
+		System.exit(1);
+	}
+	// push the value in queue
+	public void enqueue(Customer value) { 
+		if (isFull()) error("Queue is Full");
+		rear = (rear + 1) % MAX_QUEUE_SIZE;
+		data[rear] = value;
+	}
+	// pop the value from queue
+	public Customer dequeue() {
+		if (isEmpty()) error("Queue is Empty");
+		front = (front + 1) % MAX_QUEUE_SIZE;
+		return data[front];
+	}
+	// check the top of queue
+	public Customer queue_top() {
+		if (isEmpty()) error("Queue is Empty!");
+		return data[(front + 1) % MAX_QUEUE_SIZE];
+	}
+	// print data in queue
+	public void display() {
+		System.out.println("Queue display");
+		int maxi = (front < rear) ? rear : (rear + MAX_QUEUE_SIZE);
+		for (int i = front + 1; i <= maxi; i++) {
+			System.out.println(data[i]);
+		}
+	}
+}
+
+class BankSimulator {
+	int nSimulation;
+	double probArrival;
+	int tMaxService; 
+	int totalWaitTime;
+	int nCustomers;
+	int nServedCustomers;
+	CustomerQueue que = new CustomerQueue();
+	Random rand = new Random();
+	
+	// create random digit
+	double Random() { return rand.nextDouble(); }
+    // is there any new customer?
+	boolean IsNewCustomer() { return Random() > probArrival; }
+	// calculate service time 
+	int RandServiceTime() { return (int)(tMaxService * Random()) + 1; }
+	
+	// push new arrival customer in queue
+	void InsertCustomer(int arrivalTime) {
+		Customer a = new Customer(++nCustomers, arrivalTime, RandServiceTime());
+		System.out.printf("  customer %d visit (Service Time: %d min)\n", a.getID(), a.getTS());
+		que.enqueue(a);
+	}
+	
+	// create constructor
+	public BankSimulator() {
+		nCustomers = 0;
+		totalWaitTime = 0;
+		nServedCustomers = 0;
+	}
+	
+	// input simulation parameter
+	void readSimulationParameters() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Simulation Time (ex: 10) = "); nSimulation = sc.nextInt();
+		System.out.print("Arrival Customer Num (ex: 0.5) = "); probArrival = sc.nextDouble();
+		System.out.print("Max Service Time per one customer (ex: 5) = "); tMaxService = sc.nextInt();
+		System.out.print("=================================================================\n");
+	}
+	
+	// operate simulation
+	void run() {
+		int clock = 0;
+		int serviceTime = -1;
+		while (clock < nSimulation) {
+			clock++;
+			System.out.printf("current clock = %d\n", clock);
+			
+			if (IsNewCustomer()) InsertCustomer(clock);
+			if (serviceTime > 0) serviceTime--;
+			else {
+				if (que.isEmpty()) continue;
+				Customer a = que.dequeue();
+				nServedCustomers++;
+				totalWaitTime += clock - a.getTA();
+				System.out.printf("  customer %d service start (waiting time: %d min)\n", a.getID(), clock - a.getTA());
+				serviceTime = a.getTS() - 1; 
+			}
+		}
+	}
+	
+	// print result of simulation
+	void printStat() {
+		System.out.println("=================================================================\n");
+		System.out.printf("  served customer number = %d\n",  nServedCustomers);
+		System.out.printf("  total waiting time = %d min\n", totalWaitTime);
+		System.out.printf("  served customer average waiting time = %-5.2f min\n", (double)totalWaitTime / nServedCustomers);
+		System.out.printf("  current waiting customer number = %d\n",  nCustomers - nServedCustomers);
+	}
+}
+
+public class Main {
+	public static void main(String[] args) {
+		BankSimulator sim = new BankSimulator();
+		sim.readSimulationParameters();
+		sim.run();
+		sim.printStat();
+	}
+}
