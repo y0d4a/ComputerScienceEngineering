@@ -1,0 +1,98 @@
+import java.util.LinkedList;
+import java.util.Deque;
+
+class Location2D {
+	private int row;
+	private int col;
+	
+	// create constructor
+	public Location2D(int r, int c) {
+		row = r;
+		col = c;
+	}
+	// create copy constructor
+	public Location2D(Location2D copy) {
+		this.row = copy.row;
+		this.col = copy.col;
+	}
+	
+	public int getRow() { return row; }
+	public int getCol() { return col; }
+	public boolean isSameLoction(Location2D p) { return row == p.row && col == p.col; }
+}
+
+public class Main {
+	final static int MAZE_SIZE = 6;
+	public static char[][] map = { { '1', '1', '1', '1', '1', '1' }, 
+			               { 'e', '0', '1', '0', '0', '1' },
+			               { '1', '0', '0', '0', '1', '1' }, 
+			               { '1', '0', '1', '0', '1', '1' },
+			               { '1', '0', '1', '0', '0', 'x' },
+			               { '1', '1', '1', '1', '1', '1' } 
+	};
+
+	public static boolean isValidLoc(int r, int c) {
+		if (r < 0 || c < 0 || r >= MAZE_SIZE || c >= MAZE_SIZE)
+			return false;              
+		else
+			return map[r][c] == '0' || map[r][c] == 'x';
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("Deque(BFS) - using Stack\n");
+		Deque<Location2D> locDeque = new LinkedList<>(); // Instance in safe because of LinkedList
+		Location2D entry = new Location2D(1, 0);
+		locDeque.push(entry); // no matter what add, push, offer, put
+		
+		/*
+		    Deque Method tip
+		   
+		    1) addition 
+
+                        - add : insert Element last array of Deque (role in enqueue)
+            
+			- put : operate equally add
+	
+			- offer : add와 동일하게 작동. OfferFirst, OfferLast
+	
+			- push : Deque의 앞 부분에 Element를 삽입.
+	
+		    2) deletion
+	
+			- poll : Deque의 제일 앞 Element를 return 받음. Element를 제거. pollFirst, pollLast == dequeue
+	
+			- pop : Deque의 제일 뒤 Element를 return 받음. Element를 제거. == pop
+	
+			// Queue의 경우에는 "FIFO"이기 때문에 제거해야 할 Element가 제일 처음에 들어온 것(add로 맨 처음에 들어온 것), 즉 제일 앞에 있는 Element.
+	                // Stack의 경우에는 "LIFO"이기 때문에 제거해야 할 Element가 제일 나중에 들어온 것(push로 맨 나중에 들어온 것), 즉 제일 뒤에 있는 Element.
+	
+			3) 값을 제거하지 않고 확인만 하기
+	
+			- peek : Deque의 제일 앞 Element를 return 받음. Element를 제거하지 않음. peekFirst, peekLast
+		*/
+		
+		while (locDeque.isEmpty() == false) {
+			Location2D here = new Location2D(locDeque.peek()); // 제일 앞에 있는 요소 복사
+			locDeque.poll(); // DFS이므로 스택처럼 동작하기 위해선 뒤를 막고 앞에서만 삽입, 삭제를 한다
+			
+			int r = here.getRow();
+			int c = here.getCol();
+			System.out.printf("(%d, %d) ", r, c);
+			
+			if (map[r][c] == 'x') {
+				System.out.println("미로 탐색 성공");
+				return;
+			} else {
+				map[r][c] = '.';
+				
+				// 스택과 같은 역할을 하기 위해선 앞에서만 삽입해야 하므로 push를 이용한다
+				if (isValidLoc(r - 1, c)) locDeque.push(new Location2D(r - 1, c));
+				if (isValidLoc(r + 1, c)) locDeque.push(new Location2D(r + 1, c));
+				if (isValidLoc(r, c - 1)) locDeque.push(new Location2D(r, c - 1));
+				if (isValidLoc(r, c + 1)) locDeque.push(new Location2D(r, c + 1));
+			}
+		}
+		
+		System.out.println("미로 탐색  실패");
+	}
+}
