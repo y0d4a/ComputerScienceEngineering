@@ -53,27 +53,24 @@ public class Main {
             
 			- put : operate equally add
 	
-			- offer : add와 동일하게 작동. OfferFirst, OfferLast
+			- offer : operate equally add
 	
-			- push : Deque의 앞 부분에 Element를 삽입.
-	
+			- push : insert Element first array of Deque
+	               
 		    2) deletion
+	                 
+			- poll : get value of first array of Deque and eleminate value (role in dequeue)
+	                    
+			- pop : get value of last array of Deque and eleminate value
+	                     
+		    3) check
 	
-			- poll : Deque의 제일 앞 Element를 return 받음. Element를 제거. pollFirst, pollLast == dequeue
-	
-			- pop : Deque의 제일 뒤 Element를 return 받음. Element를 제거. == pop
-	
-			// Queue의 경우에는 "FIFO"이기 때문에 제거해야 할 Element가 제일 처음에 들어온 것(add로 맨 처음에 들어온 것), 즉 제일 앞에 있는 Element.
-	                // Stack의 경우에는 "LIFO"이기 때문에 제거해야 할 Element가 제일 나중에 들어온 것(push로 맨 나중에 들어온 것), 즉 제일 뒤에 있는 Element.
-	
-			3) 값을 제거하지 않고 확인만 하기
-	
-			- peek : Deque의 제일 앞 Element를 return 받음. Element를 제거하지 않음. peekFirst, peekLast
+		        - peek : get value of first array of Deque
 		*/
 		
 		while (locDeque.isEmpty() == false) {
-			Location2D here = new Location2D(locDeque.peek()); // 제일 앞에 있는 요소 복사
-			locDeque.poll(); // DFS이므로 스택처럼 동작하기 위해선 뒤를 막고 앞에서만 삽입, 삭제를 한다
+			Location2D here = new Location2D(locDeque.peek()); // copy value of first array element
+			locDeque.poll();
 			
 			int r = here.getRow();
 			int c = here.getCol();
