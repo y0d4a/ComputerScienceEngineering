@@ -77,12 +77,12 @@ public class Main {
 			System.out.printf("(%d, %d) ", r, c);
 			
 			if (map[r][c] == 'x') {
-				System.out.println("미로 탐색 성공");
+				System.out.println("Escape maze success!");
 				return;
 			} else {
 				map[r][c] = '.';
 				
-				// 스택과 같은 역할을 하기 위해선 앞에서만 삽입해야 하므로 push를 이용한다
+				// inorder to role in stack, using command push
 				if (isValidLoc(r - 1, c)) locDeque.push(new Location2D(r - 1, c));
 				if (isValidLoc(r + 1, c)) locDeque.push(new Location2D(r + 1, c));
 				if (isValidLoc(r, c - 1)) locDeque.push(new Location2D(r, c - 1));
@@ -90,6 +90,6 @@ public class Main {
 			}
 		}
 		
-		System.out.println("미로 탐색  실패");
+		System.out.println("Escape maze fail!");
 	}
 }
