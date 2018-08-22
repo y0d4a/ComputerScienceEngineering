@@ -28,8 +28,7 @@ public class Main {
 			               { '1', '0', '0', '0', '1', '1' }, 
 			               { '1', '0', '1', '0', '1', '1' },
 			               { '1', '0', '1', '0', '0', 'x' },
-			               { '1', '1', '1', '1', '1', '1' } 
-	};
+			               { '1', '1', '1', '1', '1', '1' } };
 
 	public static boolean isValidLoc(int r, int c) {
 		if (r < 0 || c < 0 || r >= MAZE_SIZE || c >= MAZE_SIZE)
