@@ -39,25 +39,25 @@ public class Main {
 	
 	public static void main(String[] args) {
 		System.out.println("Deque(BFS) - using Queue\n")
-		Deque<Location2D> locDeque = new LinkedList<>(); // LinkedList로 인스턴스화가 안전함
+		Deque<Location2D> locDeque = new LinkedList<>(); // Instance in safe because of LinkedList
 		Location2D entry = new Location2D(1, 0);
-		locDeque.push(entry); // add, push, offer, put 상관없음
+		locDeque.push(entry); // no matter what add, push, offer, put
 		
 		while (locDeque.isEmpty() == false) {
-			Location2D here = new Location2D(locDeque.peek()); // 제일 앞에 있는 요소 복사
-			locDeque.poll(); // BFS이므로 큐처럼 동작하기 위해선 뒤에서 삽입, 앞에서 삭제를 한다
+			Location2D here = new Location2D(locDeque.peek()); // copy value of first array element
+			locDeque.poll(); // inorder to role in queue, insert it from the back and delete it from the front
 			
 			int r = here.getRow();
 			int c = here.getCol();
 			System.out.printf("(%d, %d) ", r, c);
 			
 			if (map[r][c] == 'x') {
-				System.out.println("미로 탐색 성공");
+				System.out.println("Escape maze success!");
 				return;
 			} else {
 				map[r][c] = '.';
 				
-				// 큐 같은 역할을 하기 위해선 뒤에서만 삽입해야 하므로 add를 이용한다
+				// inorder to role in queue, using command add
 				if (isValidLoc(r - 1, c)) locDeque.add(new Location2D(r - 1, c));
 				if (isValidLoc(r + 1, c)) locDeque.add(new Location2D(r + 1, c));
 				if (isValidLoc(r, c - 1)) locDeque.add(new Location2D(r, c - 1));
@@ -65,6 +65,6 @@ public class Main {
 			}
 		}
 		
-		System.out.println("미로 탐색  실패");
+		System.out.println("Escape maze fail!");
 	}
 }
