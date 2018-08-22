@@ -1,0 +1,71 @@
+import java.util.LinkedList;
+import java.util.Deque;
+
+class Location2D {
+	private int row;
+	private int col;
+	
+	public Location2D(int r, int c) {
+		row = r;
+		col = c;
+	}
+	
+	public Location2D(Location2D copy) {
+		this.row = copy.row;
+		this.col = copy.col;
+	}
+	
+	public int getRow() { return row; }
+	public int getCol() { return col; }
+
+	public boolean isSameLoction(Location2D p) { return row == p.row && col == p.col; }
+}
+
+public class Main {
+	final static int MAZE_SIZE = 6;
+	public static char[][] map = { { '1', '1', '1', '1', '1', '1' }, 
+			                       { 'e', '0', '1', '0', '0', '1' },
+			                       { '1', '0', '0', '0', '1', '1' }, 
+			                       { '1', '0', '1', '0', '1', '1' },
+			                       { '1', '0', '1', '0', '0', 'x' },
+			                       { '1', '1', '1', '1', '1', '1' } 
+	};
+
+	public static boolean isValidLoc(int r, int c) {
+		if (r < 0 || c < 0 || r >= MAZE_SIZE || c >= MAZE_SIZE)
+			return false;              
+		else
+			return map[r][c] == '0' || map[r][c] == 'x';
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("Deque(BFS) - Queue\n");
+		Deque<Location2D> locDeque = new LinkedList<>(); // LinkedList로 인스턴스화가 안전함
+		Location2D entry = new Location2D(1, 0);
+		locDeque.push(entry); // add, push, offer, put 상관없음
+		
+		while (locDeque.isEmpty() == false) {
+			Location2D here = new Location2D(locDeque.peek()); // 제일 앞에 있는 요소 복사
+			locDeque.poll(); // BFS이므로 큐처럼 동작하기 위해선 뒤에서 삽입, 앞에서 삭제를 한다
+			
+			int r = here.getRow();
+			int c = here.getCol();
+			System.out.printf("(%d, %d) ", r, c);
+			
+			if (map[r][c] == 'x') {
+				System.out.println("미로 탐색 성공");
+				return;
+			} else {
+				map[r][c] = '.';
+				
+				// 큐 같은 역할을 하기 위해선 뒤에서만 삽입해야 하므로 add를 이용한다
+				if (isValidLoc(r - 1, c)) locDeque.add(new Location2D(r - 1, c));
+				if (isValidLoc(r + 1, c)) locDeque.add(new Location2D(r + 1, c));
+				if (isValidLoc(r, c - 1)) locDeque.add(new Location2D(r, c - 1));
+				if (isValidLoc(r, c + 1)) locDeque.add(new Location2D(r, c + 1));
+			}
+		}
+		
+		System.out.println("미로 탐색  실패");
+	}
+}
