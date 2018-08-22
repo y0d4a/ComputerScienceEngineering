@@ -24,12 +24,11 @@ class Location2D {
 public class Main {
 	final static int MAZE_SIZE = 6;
 	public static char[][] map = { { '1', '1', '1', '1', '1', '1' }, 
-			                       { 'e', '0', '1', '0', '0', '1' },
-			                       { '1', '0', '0', '0', '1', '1' }, 
-			                       { '1', '0', '1', '0', '1', '1' },
-			                       { '1', '0', '1', '0', '0', 'x' },
-			                       { '1', '1', '1', '1', '1', '1' } 
-	};
+			               { 'e', '0', '1', '0', '0', '1' },
+			               { '1', '0', '0', '0', '1', '1' }, 
+			               { '1', '0', '1', '0', '1', '1' },
+			               { '1', '0', '1', '0', '0', 'x' },
+			               { '1', '1', '1', '1', '1', '1' } };
 
 	public static boolean isValidLoc(int r, int c) {
 		if (r < 0 || c < 0 || r >= MAZE_SIZE || c >= MAZE_SIZE)
@@ -39,7 +38,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("Deque(BFS) - Queue\n");
+		System.out.println("Deque(BFS) - using Queue\n")
 		Deque<Location2D> locDeque = new LinkedList<>(); // LinkedList로 인스턴스화가 안전함
 		Location2D entry = new Location2D(1, 0);
 		locDeque.push(entry); // add, push, offer, put 상관없음
