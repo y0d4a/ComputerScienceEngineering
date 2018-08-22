@@ -39,7 +39,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("Deque(BFS) - using Stack\n");
+		System.out.println("Deque(DFS) - using Stack\n");
 		Deque<Location2D> locDeque = new LinkedList<>(); // Instance in safe because of LinkedList
 		Location2D entry = new Location2D(1, 0);
 		locDeque.push(entry); // no matter what add, push, offer, put
