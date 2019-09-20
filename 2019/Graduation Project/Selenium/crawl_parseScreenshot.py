@@ -1,16 +1,10 @@
 import os
 import time
 import io
-from PIL import Image
+from PIL import Image # 모듈 설치 시 Pillow로 설치해야함
 
 # 스크린 샷 추출 함수(바이너리 형태로 몽고 DB에 저장)
-def parseScreenshot(driver, file):
-
-    print('스크린 샷 추출 중')
-    for i in range(1, 40):
-        print('▶', end="", flush=True)
-        time.sleep(0.1)
-    print('')
+def parseScreenshot(driver, user_name, keyword):
 
     # 스크린 샷 화면 크기 조정
     total_width = driver.execute_script("return document.body.offsetWidth")
@@ -67,7 +61,7 @@ def parseScreenshot(driver, file):
         previous = rectangle
 
     # 통합된 스크린 샷 통합해서 저장하기
-    stitched_image.save('C:/Users/battl/PycharmProjects/WebCrawling/seleniumCrawl/screenshot/' + file)
+    stitched_image.save('C:/Users/battl/PycharmProjects/myProject02/screenshot/' + user_name + '_' + keyword + '.png')
     # 바이너리 형태로 파일 저장하기
     output = io.BytesIO()
     stitched_image.save(output, format='PNG')
