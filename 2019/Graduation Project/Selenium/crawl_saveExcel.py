@@ -11,7 +11,7 @@ def make_excel(user_name, keyword):
     now = datetime.datetime.now()
     date = now.strftime('%Y.%m.%d')
     # 엑셀 파일 저장 위치
-    excel_file_path = 'C:/Users/battl/PycharmProjects/myProject02/excel/'
+    excel_file_path = 'C:/Users/battl/PycharmProjects/ComputerScienceEngineering/2019/Graduation Project/Selenium/excel/'
     # 엑셀 파일 이름
     excel_file_name = excel_file_path + user_name + '_' + keyword + '_' + date + '.xlsx'
     # 엑셀 sheet 이름
@@ -67,7 +67,7 @@ def crawl_saveExcel(user_name, user_email, curr_url, prev_url, pageList, relativ
     now = datetime.datetime.now()
     date = now.strftime('%Y.%m.%d')
     # 엑셀 파일 저장 위치
-    excel_file_path = 'C:/Users/battl/PycharmProjects/myProject02/excel/'
+    excel_file_path = 'C:/Users/battl/PycharmProjects/ComputerScienceEngineering/2019/Graduation Project/Selenium/excel/'
     # 엑셀 파일 이름
     excel_file_name = excel_file_path + user_name + '_' + keyword + '_' + date + '.xlsx'
     # 엑셀 sheet 이름
@@ -132,7 +132,7 @@ def crawl_saveExcel(user_name, user_email, curr_url, prev_url, pageList, relativ
 
         # 스크린 샷(14)인 경우(문자열 형태)
         elif idx == 14:
-            png_loc = 'C:/Users/battl/PycharmProjects/myProject02/screenshot/' + user_name + '_' + keyword + '.png'
+            png_loc = 'C:/Users/battl/PycharmProjects/ComputerScienceEngineering/2019/Graduation Project/Selenium/screenshot/' + user_name + '_' + keyword + '.png'
             png = openpyxl.drawing.image.Image(png_loc)
             sheet1.add_image(png, 'P2')
 

@@ -61,7 +61,7 @@ def parseScreenshot(driver, user_name, keyword):
         previous = rectangle
 
     # 통합된 스크린 샷 통합해서 저장하기
-    stitched_image.save('C:/Users/battl/PycharmProjects/myProject02/screenshot/' + user_name + '_' + keyword + '.png')
+    stitched_image.save('C:/Users/battl/PycharmProjects/ComputerScienceEngineering/2019/Graduation Project/Selenium/screenshot/' + user_name + '_' + keyword + '.png')
     # 바이너리 형태로 파일 저장하기
     output = io.BytesIO()
     stitched_image.save(output, format='PNG')

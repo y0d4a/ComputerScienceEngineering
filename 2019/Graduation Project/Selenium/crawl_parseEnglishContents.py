@@ -14,7 +14,7 @@ class SentenceTokenizer(object):
     def __init__(self):
 
         # 영어 불용어 엑셀 파일을 로드
-        self.load_wb = load_workbook('C:/Users/battl/PycharmProjects/myProject02/excel/english_stopwords.xlsx')
+        self.load_wb = load_workbook('C:/Users/battl/PycharmProjects/ComputerScienceEngineering/2019/Graduation Project/Selenium/excel/english_stopwords.xlsx')
         self.load_ws = self.load_wb['Sheet1']
         self.get_cells = self.load_ws['A1':'A667']
 
