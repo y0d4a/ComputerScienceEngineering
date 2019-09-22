@@ -5,9 +5,7 @@
     몽고 DB에 들어갈 속성 : 사용자명, 이메일, 현재 페이지, 이전 페이지, 페이지 리스트, 레벨, 키워드, 서브 키워드, 본문 요약, 태그, 스크린 샷, 추출 시간
 """
 
-import sys
 import json
-from pprint import pprint
 import crawl_initiateChromeDriver
 import crawl_parseKeyword
 import crawl_parseKoreanContents
