@@ -1,4 +1,3 @@
-import time
 from collections import Counter
 from konlpy.tag import Kkma # 한글 데이터 추출
 from nltk import word_tokenize # 영어 데이터 추출
@@ -20,12 +19,6 @@ def isEnglishOrKorean(input_s):
 
 # 서브 키워드 추출 함수
 def parseSubKeyword(pageContents):
-
-    print('서브 키워드 추출 중')
-    for i in range(1, 40):
-        print('▶', end="", flush=True)
-        time.sleep(0.1)
-    print('')
 
     tokenslist = []
     for p in pageContents.find_elements_by_tag_name('p'):
