@@ -3,21 +3,23 @@
 
     사용자들의 이메일 정보를 인자로 받아서 각각에 해당하는 컬렉션들을 통합
 
-    ※ 본 기능 1에는 어떠한 인자 값이 들어오지 않음
+    ※ 본 기능 1은 사용자들의 크롤링이 모두 끝나면 프론트 엔드에서 'stop' 시그널을 플라스크 서버로 요청한다.
+    플라스크 서버에서 'stop' 시그널을 받으면 Function1.py를 실행시킨다.
 """
 
 import sys
 from pymongo import MongoClient
 
-db_user_email = [sys.argv[1], sys.argv[2], sys.argv[3]]
-numOfUsers = len(db_user_email)
-
 conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
 all_user_tableList = []
 
+# 몽고 DB에 있는
+db_user_email = [sys.argv[1], sys.argv[2], sys.argv[3]]
+numOfUsers = len(db_user_email)
+
 for i in range(numOfUsers):
     db = conn['JMH']
-    db_collection_name = 'project_' + db_user_email[i]
+    db_collection_name = 'project' + '_' + db_user_email[i]
     collection = db[db_collection_name]
 
     integratedData = collection.find()

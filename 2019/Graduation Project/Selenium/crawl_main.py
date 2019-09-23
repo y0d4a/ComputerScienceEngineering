@@ -1,10 +1,8 @@
 """
     프론트엔드에서 사용자가 키워드를 입력하거나 페이지를 옮기면서 url이 변할 경우 메인 함수에 json 객체가 들어옴(현재 페이지, 이전 페이지, 레벨, 태그)
     url을 응답해서 그 url에 맞는 크롤링 방식 채택
-
-    몽고 DB에 들어갈 속성 : 사용자명, 이메일, 현재 페이지, 이전 페이지, 페이지 리스트, 레벨, 키워드, 서브 키워드, 본문 요약, 태그, 스크린 샷, 추출 시간
 """
-import sys
+
 import json
 import crawl_initiateChromeDriver
 import crawl_parseKeyword
@@ -18,31 +16,23 @@ import crawl_saveMongoDB
 import crawl_saveExcel
 from datetime import datetime
 
-def main(): # jsonFile):
+def main(jsonFile):
     # 검색 페이지인 경우를 알기 위한 변수
     search_page = 'https://www.google.com/search?'
 
-    # # 메인 함수에 들어오는 json 객체 파일 열기
-    # with open(jsonFile) as f:
-    #     data = json.loads(f.read())
-    #
-    #     user_name = data['user_name']
-    #     user_email = data['user_email']
-    #     curr_url = data['curr_url']
-    #     prev_url = data['prev_url']
-    #     paths = data['paths']
-    #     level = data['level']               # 현재 페이지의 레벨
-    #     tagged = data['tagged']             # 사용자가 생각하는 우선 순위 태그
-    #     memo = data['memo']                 # 사용자의 메모
+    # 메인 함수에 들어오는 json 객체 파일 열기
+    with open(jsonFile) as f:
+        data = json.loads(f.read())
 
-    user_name = sys.argv[1]
-    user_email = sys.argv[2]
-    curr_url = sys.argv[3]
-    prev_url = sys.argv[4]
-    paths = sys.argv[5]                       # 문자열 배열
-    level = sys.argv[6]
-    tagged = sys.argv[7]
-    memo = sys.argv[8]
+        user_name = data['user_name']
+        user_email = data['user_email']
+        curr_url = data['curr_url']
+        prev_url = data['prev_url']
+        paths = data['paths']
+        level = data['level']
+        tagged = data['tagged']
+        memo = data['memo']
+        project_name = data['project_name']
 
     # 현재 페이지에 대한 크롤링 준비
     driver = crawl_initiateChromeDriver.initiateChromeDriver()
@@ -92,7 +82,7 @@ def main(): # jsonFile):
         nowTime = datetime.now()
 
     # 추출된 아이템들을 몽고 DB에 저장
-    crawl_saveMongoDB.store_mongoDB(user_name, user_email, curr_url, prev_url, pageList, relativeKeywordList, level, paths, keyword, sub_keyword, pageContents, memo, screenshot, tagged, nowTime)
+    crawl_saveMongoDB.store_mongoDB(user_name, user_email, curr_url, prev_url, pageList, relativeKeywordList, level, paths, keyword, sub_keyword, pageContents, memo, screenshot, tagged, nowTime, project_name)
 
     # 추출된 아이템들을 엑셀에 저장
     crawl_saveExcel.make_excel(user_name, keyword)
