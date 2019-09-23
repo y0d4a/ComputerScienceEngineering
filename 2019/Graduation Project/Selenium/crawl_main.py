@@ -39,7 +39,7 @@ def main(): # jsonFile):
     user_email = sys.argv[2]
     curr_url = sys.argv[3]
     prev_url = sys.argv[4]
-    paths = sys.argv[5]
+    paths = sys.argv[5]                       # 문자열 배열
     level = sys.argv[6]
     tagged = sys.argv[7]
     memo = sys.argv[8]
