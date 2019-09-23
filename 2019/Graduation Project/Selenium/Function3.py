@@ -7,13 +7,24 @@
     ※ 본 기능 3에는 노드의 ID가 입력되면 해당 노드 ID의 방문비율을 몽고 DB에서 가져와 결정 기준치 값 이상이면 'Blue'를, 미만이면 'Red'를 반환한다.
 """
 
+import sys
 from pymongo import MongoClient
+
+object_id = sys.argv[1]
 
 # 몽고 DB 연결
 conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
 db = conn['JMH']
-collection = db['project_after_data']
+collection = db['second_integrated_user_table']
 
-dataList = collection.find()
-for data in dataList:
-    print(data)
+def return_visit_rate():
+
+    dataList = collection.find()
+    for data in dataList:
+        if str(data['_id']) == object_id:
+            visit_rate = float(data['visit_rate'])
+
+            if visit_rate >= 0.5:
+                return 'Blue'
+            else:
+                return 'Red'
