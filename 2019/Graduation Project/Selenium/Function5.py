@@ -1,7 +1,9 @@
 """
     기능 5 : 태그 표시된 노드들만 볼 수 있는 기능
 
-    태그 표시 노드 기능을 누를 시 DB에 있는 document들 중 tagged가 Important인 것만 출력시킨다.
+    태그 표시 노드 기능을 누를 시 DB에 있는 document들 중 tagged가 'Important'인 것만 출력시킨다.
+
+    ※ 본 기능 5에는 인자로 boolean 값이 들어오면 태그 노드를 반환한다.
 """
 
 from pymongo import MongoClient
@@ -25,11 +27,11 @@ dataList = collection.aggregate([
                 "pageList": 0,
                 "relativeKeywordList": 0,
                 "level": 0,
-                "parent_id": 0,
                 "path": 0,
                 # "keyword": 1,
                 "sub_keyword": 0,
                 "pageContents": 0,
+                "memo": 0,
                 # "tagged": 1,
                 "nowTime": 0,
                 "screenshot": 0,
@@ -44,6 +46,4 @@ def tagged_Node():
         if data['tagged'] == 'Important':
             tagged_Data.append(data['_id'])
 
-    print(tagged_Data)
-
-tagged_Node()
+    return tagged_Data
