@@ -15,7 +15,7 @@ object_id = sys.argv[1]
 # 몽고 DB 연결
 conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
 db = conn['JMH']
-collection = db['second_integrated_user_table']
+collection = db['project_after_data']
 
 def return_visit_rate():
 

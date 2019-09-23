@@ -3,8 +3,11 @@
 
     저장된 데이터를 리스트로 반환하여 리스트 목록 중 자신의 레벨의 이전 페이지와 한 단계 낮은 레벨의 현재 페이지를 비교
     레벨이 1이 될 때까지 계속해서 비교하다, 레벨이 1이 되는 순간의 키워드를 자신의 데이터 리스트 키워드로 정한다.
+
+    ※ 본 기능 4에는 노드의 ID가 입력되면 해당 노드 ID에 해당하는 파생 키워드를 반환한다.
 """
 
+import sys
 from pymongo import MongoClient
 
 # 몽고 DB 연결
@@ -24,7 +27,7 @@ dataList = collection.aggregate([
         '$project':
             {
                 # "_id": 1,
-                "user_name": 0,
+                # "user_name": 1,
                 "user_email": 0,
                 # "curr_url": 1,
                 # "prev_url": 1,
@@ -32,11 +35,11 @@ dataList = collection.aggregate([
                 "pageList": 0,
                 "relativeKeywordList": 0,
                 # "level": 1,
-                "parent_id": 0,
                 "path": 0,
                 # "keyword": 1,
                 "sub_keyword": 0,
                 "pageContents": 0,
+                "memo": 0,
                 "tagged": 0,
                 "nowTime": 0,
                 "screenshot": 0,
@@ -44,32 +47,34 @@ dataList = collection.aggregate([
     },
 ])
 
-def find_keyword(lv, prev):
+def find_keyword(user, lv, prev):
 
-    for d in dataList:
-        keyword = d['keyword']
-        curr_url = d['curr_url']
-        prev_url = d['prev_url']
-        level = int(d['level'])
+    for data in dataList:
+        user_name = data['user_name']
+        keyword = data['keyword']
+        curr_url = data['curr_url']
+        prev_url = data['prev_url']
+        level = int(data['level'])
 
         # 만약 입력받은 레벨(자신의 레벨)보다 한 단계 낮은 레벨의 현재 페이지와 입력받은 레벨(자신의 레벨)의 이전 페이지가 같을 경우
-        if lv - 1 == level and curr_url == prev:
+        if lv - 1 == level and curr_url == prev and user_name == user:
             # 레벨이 1인 경우 키워드를 반환한다.
             if level == 1:
-                print('파생 키워드: ' + keyword)
+                print("파생 키워드: " + keyword)
             else:
-                find_keyword(level, prev_url)
+                find_keyword(user, level, prev_url)
         else:
             continue
 
-# 원하는 노드의 레벨 입력
-print('해당 노드 ID 입력: ', end='')
-find_node_id = input()
-find_level = 0
+def return_origin_keyword():
 
-for data in dataList:
-    if str(data['_id']) == find_node_id:
-        find_level = int(data['level'])
-        find_keyword(find_level, data['prev_url'])
-    else:
-        continue
+    # 원하는 노드의 레벨 입력
+    find_node_id = sys.argv[1]
+
+    for data in dataList:
+        if str(data['_id']) == find_node_id:
+            find_keyword(data['user_name'], data['level'], data['prev_url'])
+        else:
+            continue
+
+return_origin_keyword()
