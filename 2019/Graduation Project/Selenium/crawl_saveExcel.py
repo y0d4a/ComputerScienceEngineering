@@ -101,10 +101,10 @@ def crawl_saveExcel(user_name, user_email, curr_url, prev_url, pageList, relativ
     crawl_info_values = list(crawl_info.values())
 
     for idx, info_values in enumerate(crawl_info_values):
-        # 페이지 리스트(4), 서브 키워드(9), 본문 요약(10)인 경우(리스트 형태)
-        # 페이지 리스트(4)와 서브 키워드(9), 본문 요약(10)의 경우는 검색 페이지와 홈페이지인 경우 추출이 안될 수 있기 때문에
+        # 페이지 리스트(4), 경로(7), 서브 키워드(9), 본문 요약(10)인 경우(리스트 형태)
+        # 페이지 리스트(4)와 경로(7), 서브 키워드(9), 본문 요약(10)의 경우는 검색 페이지와 홈페이지인 경우 추출이 안될 수 있기 때문에
         # 빈 리스트를 고려해주어야 한다.
-        if idx == 4 or idx == 9 or idx == 10:
+        if idx == 4 or idx == 7 or idx == 9 or idx == 10:
             if info_values == []:
                 sheet1.cell(row=excel_row, column=excel_column).value = ''
             else:
@@ -136,7 +136,7 @@ def crawl_saveExcel(user_name, user_email, curr_url, prev_url, pageList, relativ
             png = openpyxl.drawing.image.Image(png_loc)
             sheet1.add_image(png, 'P2')
 
-        # 사용자명, 이메일, 현재 페이지, 이전 페이지, 경로, 키워드, 메모, 태그, 추출 시간인 경우(문자열 형태)
+        # 사용자명, 이메일, 현재 페이지, 이전 페이지, 키워드, 메모, 태그, 추출 시간인 경우(문자열 형태)
         else:
             if info_values == []:
                 sheet1.cell(row=excel_row, column=excel_column).value = ''

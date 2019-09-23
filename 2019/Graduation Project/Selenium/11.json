@@ -1,0 +1,15 @@
+{
+	"user_name": "Myunghwa Ji",
+	"user_email": "_sck@daum.net\"",
+	"curr_url": "https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%8D%94%EB%A6%AC%EC%9B%80",
+	"prev_url": "https://www.google.com/search?sxsrf=ACYBGNQnTdX_KcboAJOPySoSFnfiofftJg%3A1569246017901&source=hp&ei=QcuIXbrgNIjU0gTNmZaIAg&q=%EC%9D%B4%EB%8D%94%EB%A6%AC%EC%9B%80&oq=%EC%9D%B4%EB%8D%94%EB%A6%AC%EC%9B%80&gs_l=psy-ab.3..0i131i67j0l2j0i67l2j0j0i67j0l3.3894.7585..8312...5.0..0.145.1726.4j12......0....1..gws-wiz.....10..35i362i39j35i39j0i131j0i10j0i10i42.rAeI7iD5IaM&ved=0ahUKEwj6hNf7iOfkAhUIqpQKHc2MBSEQ4dUDCAY&uact=5",
+	"paths": [
+		"ko.wikipedia.org",
+        "/wiki",
+        "/%EC%9D%B4%EB%8D%94%EB%A6%AC%EC%9B%80"
+	],
+	"level": 2,
+	"tagged": "Important",
+	"memo": "Ethereum Wikipedia",
+	"project_name": "first_project"
+}

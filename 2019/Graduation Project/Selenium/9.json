@@ -1,0 +1,15 @@
+{
+	"user_name": "Myunghwa Ji",
+	"user_email": "_sck@daum.net\"",
+	"curr_url": "https://ko.wikipedia.org/wiki/%EB%B9%84%ED%8A%B8%EC%BD%94%EC%9D%B8",
+	"prev_url": "https://www.google.com/search?sxsrf=ACYBGNTIm2qcfU-ids2S2F2X8QErgH_Opg%3A1569245924663&source=hp&ei=5MqIXdeKJq-Xr7wP866j4Ak&q=%EB%B9%84%ED%8A%B8%EC%BD%94%EC%9D%B8&oq=&gs_l=psy-ab.1.4.35i362i39l10.0.0..1782...0.0..0.114.114.0j1......0......gws-wiz.....10.TmuwJBUavKU",
+	"paths": [
+		"ko.wikipedia.org",
+        "/wiki",
+        "/%EB%B9%84%ED%8A%B8%EC%BD%94%EC%9D%B8"
+	],
+	"level": 2,
+	"tagged": "Important",
+	"memo": "Bitcoin Wikipedia",
+	"project_name": "first_project"
+}

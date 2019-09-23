@@ -21,7 +21,7 @@ def main(jsonFile):
     search_page = 'https://www.google.com/search?'
 
     # 메인 함수에 들어오는 json 객체 파일 열기
-    with open(jsonFile) as f:
+    with open(jsonFile, encoding='utf-8') as f:
         data = json.loads(f.read())
 
         user_name = data['user_name']
@@ -92,4 +92,4 @@ def main(jsonFile):
     driver.close()
 
 if __name__ == '__main__':
-    main()
+    main('C:/Users/battl/PycharmProjects/ComputerScienceEngineering/2019/Graduation Project/Selenium/1.json')
