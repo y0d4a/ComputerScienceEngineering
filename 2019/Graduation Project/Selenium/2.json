@@ -1,0 +1,15 @@
+{
+	"user_name": "Seongchan Kim",
+	"user_email": "kimsc0714@naver.com",
+	"curr_url": "https://ko.wikipedia.org/wiki/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8",
+	"prev_url": "https://www.google.com/search?sxsrf=ACYBGNTiy-RIv8v3qWjrcRTO1mBhO_fMUQ%3A1569245155708&source=hp&ei=48eIXbTcKKewmAWV0p7IDQ&q=%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8&oq=&gs_l=psy-ab.1.0.35i362i39l10.0.0..5579...1.0..0.120.120.0j1......0......gws-wiz.....10.B2E5dgRtv1g",
+	"paths": [
+		"ko.wikipedia.org",
+		"/wiki",
+		"/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8"
+	],
+	"level": 2,
+	"tagged": "Important",
+	"memo": "BlockChain Wikipedia",
+	"project_name": "first_project"
+}

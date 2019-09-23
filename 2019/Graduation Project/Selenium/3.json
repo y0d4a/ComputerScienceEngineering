@@ -1,0 +1,15 @@
+{
+	"user_name": "Seongchan Kim",
+	"user_email": "kimsc0714@naver.com",
+	"curr_url": "https://ko.wikipedia.org/wiki/%EB%B9%84%ED%8A%B8%EC%BD%94%EC%9D%B8#%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8",
+	"prev_url": "https://ko.wikipedia.org/wiki/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8",
+	"paths": [
+		"ko.wikipedia.org",
+		"/wiki",
+		"/%EB%B9%84%ED%8A%B8%EC%BD%94%EC%9D%B8"
+	],
+	"level": 3,
+	"tagged": "Important",
+	"memo": "Bitcoin Wikipedia",
+	"project_name": "first_project"
+}
