@@ -36,7 +36,7 @@ class Function3:
                         "pageList": 0,
                         "relativeKeywordList": 0,
                         # "level": 1,
-                        "path": 0,
+                        "paths": 0,
                         # "keyword": 1,
                         "sub_keyword": 0,
                         "pageContents": 0,
