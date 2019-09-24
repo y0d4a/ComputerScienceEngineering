@@ -49,6 +49,3 @@ class Function4:
                 tagged_Data.append(data['_id'])
 
         return tagged_Data
-
-f4 = Function4('first_project')
-print(f4.tagged_Node())

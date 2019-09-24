@@ -69,7 +69,7 @@ class Function1:
             visit_rate.append(f)
 
         # 방문 비율을 첫 번째 통합 테이블에 추가한 새로운 통합 테이블
-        newCollection = self.db['project_after_data']
+        newCollection = self.db[project_name + '_after_data']
 
         index = 0
         for data in self.all_user_tableList:

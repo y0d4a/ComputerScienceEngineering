@@ -66,6 +66,3 @@ class Function6:
                 recommend_node.append(object_id)
 
         return recommend_node
-
-f6 = Function6('first_project')
-print(f6.recommend_path_node())

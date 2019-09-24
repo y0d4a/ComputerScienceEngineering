@@ -28,7 +28,3 @@ class Function8:
 
         # object_id는 객체 ObjectID로 변환을 해줘야 한다.
         collection.update_one({'_id': ObjectId(object_id)}, {'$set': {'tagged': re_tagged, 'memo': re_memo}})
-
-f8 = Function8()
-f8.update_user_collection('first_project', 'sck@daum.net', '5d88fa555c40847d78816bf7', 'True', 'Hello')
-# f8.update_all_user_collection('first_project', '5d88fa555c40847d78816bf7', 'True', 'Hello')

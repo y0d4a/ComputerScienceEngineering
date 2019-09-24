@@ -83,8 +83,3 @@ class Function3:
             else:
                 continue
 
-f3 = Function3('first_project')
-f3.return_origin_keyword('5d88fa555c40847d78816bf7')
-
-print(f3.result_origin_keyword_path_id)
-print(f3.result_origin_keyword)
