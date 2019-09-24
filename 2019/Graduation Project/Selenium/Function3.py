@@ -4,17 +4,17 @@
     저장된 데이터를 리스트로 반환하여 리스트 목록 중 자신의 레벨의 이전 페이지와 한 단계 낮은 레벨의 현재 페이지를 비교
     레벨이 1이 될 때까지 계속해서 비교하다, 레벨이 1이 되는 순간의 키워드를 자신의 데이터 리스트 키워드로 정한다.
 
-    ※ 본 기능 3에는 노드의 ID가 입력되면 해당 노드 ID에 해당하는 파생 키워드까지의 경로와 키워드를 반환한다.
+    ※ 본 기능 3에는 프로젝트명과 노드의 ID가 입력되면 해당 노드 ID에 해당하는 파생 키워드까지의 경로와 키워드를 반환한다.
 """
 
 from pymongo import MongoClient
 
 class Function3:
 
-    def __init__(self):
+    def __init__(self, project_name):
         conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
         db = conn['JMH']
-        collection = db['project_after_data']
+        collection = db[project_name + '_after_data']
 
         # 필요한 속성만 뽑아서 dataList에 추가
         self.dataList = collection.aggregate([
@@ -83,7 +83,7 @@ class Function3:
             else:
                 continue
 
-f3 = Function3()
+f3 = Function3('first_project')
 f3.return_origin_keyword('5d88fa555c40847d78816bf7')
 
 print(f3.result_origin_keyword_path_id)

@@ -4,7 +4,7 @@
     사용자들의 이메일 정보를 인자로 받아서 각각에 해당하는 컬렉션들을 통합
 
     ※ 본 기능 1은 사용자들의 크롤링이 모두 끝나면 프론트 엔드에서 'stop' 시그널을 플라스크 서버로 요청한다.
-    플라스크 서버에서 'stop' 시그널을 받으면 Function1.py를 실행시킨다.
+    플라스크 서버에서 'stop' 시그널을 받으면 프로젝트 명을 입력으로 받아 기능 1을 실행시킨다.
 """
 
 import pandas as pd
@@ -12,14 +12,14 @@ from pymongo import MongoClient
 
 class Function1:
 
-    def create_integrated_collection(self):
+    def create_integrated_collection(self, project_name):
         self.conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
         self.db = self.conn['JMH']
 
         list_collection_names = self.db.list_collection_names()
         collection_names = []
         for list in list_collection_names:
-            if 'project_' in list:
+            if project_name in list:
                 collection_names.append(list)
 
         # 총 사용자 수
@@ -96,4 +96,4 @@ class Function1:
             index += 1
             newCollection.insert_one(upload_data)
 
-f1 = Function1()
+f1 = Function1('first_project')

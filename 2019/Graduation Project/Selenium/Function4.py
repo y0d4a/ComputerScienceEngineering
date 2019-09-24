@@ -3,17 +3,17 @@
 
     태그 표시 노드 기능을 누를 시 DB에 있는 'document'들 중 'tagged'가 'Important'인 것만 출력시킨다.
 
-    ※ 본 기능 4는 요청이 있을 경우 태그 노드를 반환한다.
+    ※ 본 기능 4는 요청이 있을 경우 프로젝트 명을 입력받아 태그 노드를 반환한다.
 """
 
 from pymongo import MongoClient
 
 class Function4:
 
-    def __init__(self):
+    def __init__(self, project_name):
         conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
         db = conn['JMH']
-        collection = db['project_after_data']
+        collection = db[project_name + '_after_data']
 
         # 필요한 속성만 뽑아서 dataList에 추가
         self.dataList = collection.aggregate([
@@ -50,5 +50,5 @@ class Function4:
 
         return tagged_Data
 
-f4 = Function4()
+f4 = Function4('first_project')
 print(f4.tagged_Node())
