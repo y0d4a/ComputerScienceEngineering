@@ -55,7 +55,7 @@ class Function6:
             visit_rate = float(data['visit_rate'])
             level = float(data['level'])
 
-            if tagged == 'Important':
+            if tagged == 'True':
                 recommend_value_tagged = 1
             else:
                 recommend_value_tagged = 0

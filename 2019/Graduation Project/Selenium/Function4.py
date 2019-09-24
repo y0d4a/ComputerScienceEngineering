@@ -29,7 +29,7 @@ class Function4:
                         "pageList": 0,
                         "relativeKeywordList": 0,
                         "level": 0,
-                        "path": 0,
+                        "paths": 0,
                         "keyword": 0,
                         "sub_keyword": 0,
                         "pageContents": 0,
@@ -45,7 +45,7 @@ class Function4:
 
         tagged_Data = []
         for data in self.dataList:
-            if data['tagged'] == 'Important':
+            if data['tagged'] == 'True':
                 tagged_Data.append(data['_id'])
 
         return tagged_Data
