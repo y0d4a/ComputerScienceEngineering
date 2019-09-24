@@ -26,6 +26,3 @@ class Function2:
                     return 'Blue'
                 else:
                     return 'Red'
-
-f2 = Function2()
-print(f2.is_blue_or_red_node('first_project', '5d88f9eebf68e1e79161bac9'))

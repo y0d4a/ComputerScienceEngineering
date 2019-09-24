@@ -13,13 +13,22 @@ from bson import ObjectId
 
 class Function8:
 
-    def update_collection(self, project_name, user_email, object_id, re_tagged):
+    def update_user_collection(self, project_name, user_email, object_id, re_tagged, re_memo):
         conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
         db = conn['JMH']
         collection = db[project_name + '_' + user_email]
 
         # object_id는 객체 ObjectID로 변환을 해줘야 한다.
-        collection.update_one({'_id': ObjectId(object_id)}, {'$set': {'tagged': re_tagged}})
+        collection.update_one({'_id': ObjectId(object_id)}, {'$set': {'tagged': re_tagged, 'memo': re_memo}})
+
+    def update_all_user_collection(self, project_name, object_id, re_tagged, re_memo):
+        conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
+        db = conn['JMH']
+        collection = db[project_name + '_after_data']
+
+        # object_id는 객체 ObjectID로 변환을 해줘야 한다.
+        collection.update_one({'_id': ObjectId(object_id)}, {'$set': {'tagged': re_tagged, 'memo': re_memo}})
 
 f8 = Function8()
-f8.update_collection('first_project', 'sck@daum.net', '5d88fa555c40847d78816bf7', 'Important')
+f8.update_user_collection('first_project', 'sck@daum.net', '5d88fa555c40847d78816bf7', 'True', 'Hello')
+# f8.update_all_user_collection('first_project', '5d88fa555c40847d78816bf7', 'True', 'Hello')

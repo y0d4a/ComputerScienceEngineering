@@ -95,5 +95,3 @@ class Function1:
 
             index += 1
             newCollection.insert_one(upload_data)
-
-f1 = Function1('first_project')
