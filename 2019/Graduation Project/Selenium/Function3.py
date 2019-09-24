@@ -12,7 +12,7 @@ from pymongo import MongoClient
 class Function3:
 
     def __init__(self, project_name):
-        conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
+        conn = MongoClient('mongodb+srv://dots_user:XXX@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
         db = conn['JMH']
         collection = db[project_name + '_after_data']
 
