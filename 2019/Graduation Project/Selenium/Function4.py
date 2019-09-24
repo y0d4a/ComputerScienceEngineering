@@ -1,80 +1,54 @@
 """
-    기능 4 : 특정 노드(키워드) 클릭 시 어느 키워드로부터 파생되었는지 경로 표시(DFS 함수 이용)
+    기능 4 : 태그 표시된 노드들만 볼 수 있는 기능
 
-    저장된 데이터를 리스트로 반환하여 리스트 목록 중 자신의 레벨의 이전 페이지와 한 단계 낮은 레벨의 현재 페이지를 비교
-    레벨이 1이 될 때까지 계속해서 비교하다, 레벨이 1이 되는 순간의 키워드를 자신의 데이터 리스트 키워드로 정한다.
+    태그 표시 노드 기능을 누를 시 DB에 있는 'document'들 중 'tagged'가 'Important'인 것만 출력시킨다.
 
-    ※ 본 기능 4에는 노드의 ID가 입력되면 해당 노드 ID에 해당하는 파생 키워드를 반환한다.
+    ※ 본 기능 4는 요청이 있을 경우 태그 노드를 반환한다.
 """
 
-import sys
 from pymongo import MongoClient
 
-# 몽고 DB 연결
-conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
-db = conn['JMH']
-collection = db['second_integrated_user_table']
+class Function4:
 
-# 필요한 속성만 뽑아서 dataList에 추가
-dataList = collection.aggregate([
-    {
-        '$sort':
-            {
-                'level': -1
-            }
-    },
-    { # 보고 싶은 속성만 출력(1은 보고 싶음, 0은 안보고 싶음)
-        '$project':
-            {
-                # "_id": 1,
-                # "user_name": 1,
-                "user_email": 0,
-                # "curr_url": 1,
-                # "prev_url": 1,
-                "visit_rate": 0,
-                "pageList": 0,
-                "relativeKeywordList": 0,
-                # "level": 1,
-                "path": 0,
-                # "keyword": 1,
-                "sub_keyword": 0,
-                "pageContents": 0,
-                "memo": 0,
-                "tagged": 0,
-                "nowTime": 0,
-                "screenshot": 0,
-            }
-    },
-])
+    def __init__(self):
+        conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
+        db = conn['JMH']
+        collection = db['project_after_data']
 
-def find_keyword(user, lv, prev):
+        # 필요한 속성만 뽑아서 dataList에 추가
+        self.dataList = collection.aggregate([
+            { # 보고 싶은 속성만 출력(1은 보고 싶음, 0은 안보고 싶음)
+                '$project':
+                    {
+                        # "_id": 1,
+                        "user_name": 0,
+                        "user_email": 0,
+                        "curr_url": 0,
+                        "prev_url": 0,
+                        "visit_rate": 0,
+                        "pageList": 0,
+                        "relativeKeywordList": 0,
+                        "level": 0,
+                        "path": 0,
+                        "keyword": 0,
+                        "sub_keyword": 0,
+                        "pageContents": 0,
+                        "memo": 0,
+                        # "tagged": 1,
+                        "nowTime": 0,
+                        "screenshot": 0,
+                    }
+            },
+        ])
 
-    for data in dataList:
-        user_name = data['user_name']
-        keyword = data['keyword']
-        curr_url = data['curr_url']
-        prev_url = data['prev_url']
-        level = int(data['level'])
+    def tagged_Node(self):
 
-        # 만약 입력받은 레벨(자신의 레벨)보다 한 단계 낮은 레벨의 현재 페이지와 입력받은 레벨(자신의 레벨)의 이전 페이지가 같을 경우
-        if lv - 1 == level and curr_url == prev and user_name == user:
-            # 레벨이 1인 경우 키워드를 반환한다.
-            if level == 1:
-                print("파생 키워드: " + keyword)
-            else:
-                find_keyword(user, level, prev_url)
-        else:
-            continue
+        tagged_Data = []
+        for data in self.dataList:
+            if data['tagged'] == 'Important':
+                tagged_Data.append(data['_id'])
 
-def return_origin_keyword():
+        return tagged_Data
 
-    # 원하는 노드의 레벨 입력
-    find_node_id = sys.argv[1]
-
-    for data in dataList:
-        if str(data['_id']) == find_node_id:
-            find_keyword(data['user_name'], data['level'], data['prev_url'])
-        else:
-            continue
-
-return_origin_keyword()
+f4 = Function4()
+print(f4.tagged_Node())

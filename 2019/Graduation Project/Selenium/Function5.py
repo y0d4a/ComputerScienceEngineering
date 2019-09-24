@@ -1,49 +1,38 @@
 """
-    기능 5 : 태그 표시된 노드들만 볼 수 있는 기능
+    기능 5 : 노드의 연관성(Word2Vector 사용)
 
-    태그 표시 노드 기능을 누를 시 DB에 있는 document들 중 tagged가 'Important'인 것만 출력시킨다.
-
-    ※ 본 기능 5에는 인자로 boolean 값이 들어오면 태그 노드를 반환한다.
+    몽고 DB에 있는 데이터에서 모든 키워드를 대상으로 유사도가 높은 키워드만을 강조 표시하도록 한다.
+    미리 학습된 영어와 한국어 파일을 이용해서 입력되는 키워드의 유사도를 계산하여 결과값으로 반환한다.
+    반환된 유사도가 85% 이상의 값을 가지면 강조 노드로 표시해준다.
 """
 
-from pymongo import MongoClient
+from gensim.models import Word2Vec
 
-# 몽고 DB 연결
-conn = MongoClient('mongodb+srv://dots_user:TzE66c5O0KB0bnjG@dots-test-x41en.mongodb.net/test?retryWrites=true&w=majority')
-db = conn['JMH']
-collection = db['second_integrated_user_table']
+# 한국어 Word2Vector 유사도 계산
+def korDataSimilarity(keyword1, keyword2):
 
-# 필요한 속성만 뽑아서 dataList에 추가
-dataList = collection.aggregate([
-    { # 보고 싶은 속성만 출력(1은 보고 싶음, 0은 안보고 싶음)
-        '$project':
-            {
-                # "_id": 1,
-                "user_name": 0,
-                "user_email": 0,
-                "curr_url": 0,
-                "prev_url": 0,
-                "visit_rate": 0,
-                "pageList": 0,
-                "relativeKeywordList": 0,
-                "level": 0,
-                "path": 0,
-                # "keyword": 1,
-                "sub_keyword": 0,
-                "pageContents": 0,
-                "memo": 0,
-                # "tagged": 1,
-                "nowTime": 0,
-                "screenshot": 0,
-            }
-    },
-])
+    model = Word2Vec.load(r'C:\Users\battl\Downloads\word2vecko.model')
+    return model.wv.similarity(keyword1, keyword2)
 
-def tagged_Node():
+# 한국어 Word2Vector 유사 단어 출력
+def korDataSimilar(keyword):
 
-    tagged_Data = []
-    for data in dataList:
-        if data['tagged'] == 'Important':
-            tagged_Data.append(data['_id'])
+    model = Word2Vec.load(r'C:\Users\battl\Downloads\word2vecko.model')
+    similar_keyword = model.wv.most_similar(keyword)
+    return similar_keyword
 
-    return tagged_Data
+# 영어 Word2Vector 유사도 계산
+def engDataSimilarity(keyword1, keyword2):
+
+    model = Word2Vec.load(r'C:\Users\battl\Downloads\word2vecen.model')
+    return model.wv.similarity(keyword1, keyword2)
+
+# 영어 Word2Vector 유사 단어 출력
+def engDataSimilar(keyword):
+
+    model = Word2Vec.load(r'C:\Users\battl\Downloads\word2vecen.model')
+    keyword = keyword.lower()
+    keyword = keyword.replace(" ", "")
+    similar_keyword = model.wv.most_similar(keyword)
+
+    return similar_keyword
