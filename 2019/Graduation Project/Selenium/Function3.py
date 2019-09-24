@@ -78,8 +78,6 @@ class Function3:
 
         for data in self.dataList:
             if str(data['_id']) == find_node_id:
-                self.result_origin_keyword_path_id.append(data['_id'])
-                self.find_keyword(data['user_name'], data['level'], data['prev_url'])
+                return self.result_origin_keyword_path_id.append(data['_id']), self.find_keyword(data['user_name'], data['level'], data['prev_url'])
             else:
                 continue
-
